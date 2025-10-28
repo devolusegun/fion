@@ -3,57 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AuraiumLMS - Modern Learning Platform</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>AuraiumLMS Landing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>AuraiumLMS</h1>
-    <p>Transform education with our modern learning platform</p>
+  <div class="grid-bg"></div>
+  <header class="hero">
+    <h1 class="logo">
+      Auraium<span class="gradient-text">LMS</span>
+    </h1>
+    <p class="subtitle">
+      Transform education with our modern learning platform.<br />
+      <span class="em-blue">Teachers</span> create engaging courses, <span class="em-purple">Students</span> learn at their own pace.
+    </p>
+    <div class="cta-btns">
+      <a href="#" class="primary-btn">Get Started</a>
+      <a href="#" class="secondary-btn">Sign In</a>
+    </div>
+    <div class="hero-icons">
+      <div class="hero-icon" aria-label="Teacher Icon" role="img">
+        <!-- Inline SVG Teacher Icon -->
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="32" fill="url(#grad1)" />
+          <path d="M20 40h24v6H20v-6z" fill="white"/>
+          <path d="M32 14a8 8 0 100 16 8 8 0 000-16z" fill="white"/>
+          <defs>
+            <linearGradient id="grad1" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#47caff"/>
+              <stop offset="1" stop-color="#558afc"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>Teacher</span>
+      </div>
+      <div class="hero-icon" aria-label="Student Icon" role="img">
+        <!-- Inline SVG Student Icon -->
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="32" fill="url(#grad2)" />
+          <path d="M20 42h24v4H20v-4z" fill="white"/>
+          <path d="M32 18a6 6 0 100 12 6 6 0 000-12z" fill="white"/>
+          <defs>
+            <linearGradient id="grad2" x1="64" y1="64" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ad4cfb"/>
+              <stop offset="1" stop-color="#47caff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>Student</span>
+      </div>
+    </div>
+    <div class="feature-icons">
+      <div class="feat-block">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#47caff" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4"/></svg>
+        <span class="feat-label">Interactive Courses</span>
+      </div>
+      <div class="feat-block">
+        <svg width="24" height="24" fill="#ad4cfb" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4"/></svg>
+        <span class="feat-label">Live Classes</span>
+      </div>
+      <div class="feat-block">
+        <svg width="24" height="24" fill="#2dd4bf" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4"/></svg>
+        <span class="feat-label">Smart Assignments</span>
+      </div>
+      <div class="feat-block">
+        <svg width="24" height="24" fill="#558afc" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4"/></svg>
+        <span class="feat-label">Progress Tracking</span>
+      </div>
+    </div>
   </header>
-  <main class="container">
-    <section class="features">
-      <div class="feature-card">
-        <h3>Interactive Courses</h3>
-        <p>Create engaging courses with multimedia content, quizzes, and interactive elements.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Live Classes</h3>
-        <p>Host real-time video sessions with screen sharing and interactive whiteboards.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Smart Assignments</h3>
-        <p>Create, submit, and auto-grade assignments with detailed feedback.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Progress Tracking</h3>
-        <p>Monitor student progress with detailed analytics and performance insights.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Collaboration Tools</h3>
-        <p>Foster collaboration with live chat, discussions, and announcements.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Scheduling</h3>
-        <p>Schedule office hours, study groups, and important deadlines easily.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Secure Access</h3>
-        <p>Role-based permissions and secure authentication for all users.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Real-time Notifications</h3>
-        <p>Keep everyone updated with real-time notifications and alerts.</p>
+
+  <main>
+    <section class="features-section">
+      <h2 class="sec-title">
+        Everything you need for <span class="gradient-text">modern education</span>
+      </h2>
+      <p class="sec-desc">
+        Powerful features designed to enhance teaching and learning experiences
+      </p>
+      <div class="feature-cards">
+        <div class="feature-card" role="region" aria-label="Interactive Courses">
+          <svg class="card-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="#47caff" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="5"/>
+          </svg>
+          <h3>Interactive Courses</h3>
+          <p>Create engaging courses with multimedia content, quizzes, and interactive elements.</p>
+        </div>
+        <div class="feature-card" role="region" aria-label="Live Classes">
+          <svg class="card-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="#ad4cfb" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="5"/>
+          </svg>
+          <h3>Live Classes</h3>
+          <p>Host real-time video sessions with screen sharing and interactive whiteboards.</p>
+        </div>
+        <div class="feature-card" role="region" aria-label="Smart Assignments">
+          <svg class="card-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="#2dd4bf" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="5"/>
+          </svg>
+          <h3>Smart Assignments</h3>
+          <p>Create, submit, and auto-grade assignments with detailed feedback.</p>
+        </div>
+        <!-- Add more cards similarly -->
       </div>
     </section>
-    <section class="cta">
-      <button type="button" id="trial-btn">Start with a 7-day free trial</button>
-      <p>No hidden fees, cancel anytime. Then £50/month for unlimited access.</p>
+    <section class="pricing-section">
+      <h2>Simple, transparent <span class="gradient-text">pricing</span></h2>
+      <p>Start with a 7-day free trial, then £50/month for unlimited access.<br />No hidden fees, cancel anytime.</p>
+      <div class="trial-badge">7-Day Free Trial Available • No credit card required</div>
+      <div class="pricing-card" role="region" aria-label="Pro plan pricing">
+        <div class="pop-badge">Most Popular</div>
+        <div class="price"><span>Pro</span> <strong>£50</strong><span>/month</span></div>
+        <div class="pricing-desc">Everything you need for professional teaching</div>
+        <ul class="pricing-feats">
+          <li>Up to 50 students</li>
+          <li>Unlimited courses & modules</li>
+          <li>Live video classes</li>
+          <li>Interactive whiteboard</li>
+          <li>Advanced assignments</li>
+          <li>Real-time chat</li>
+          <li>Progress tracking</li>
+        </ul>
+      </div>
     </section>
   </main>
-  <footer>
+
+  <footer class="footer">
     <p>© 2025 AuraiumLMS. All rights reserved.</p>
   </footer>
-  <script src="scripts.js"></script>
 </body>
 </html>
