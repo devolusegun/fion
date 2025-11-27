@@ -218,3 +218,89 @@ body {
   .logo { font-size: 2.2rem;}
   .pricing-card { max-width: 95vw;}
 }
+
+
+
+.auth-wrapper {
+  max-width: 410px;
+  margin: 60px auto;
+  background: rgba(34,36,70,0.93);
+  border-radius: 16px;
+  box-shadow: 0 2px 22px rgba(173,76,251,0.16);
+  padding: 38px 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #47caff;
+  text-align: center;
+  margin-bottom: 12px;
+  font-family: 'Orbitron', 'Poppins', Arial, sans-serif;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  padding: 13px;
+  font-size: 1.08em;
+  border: 1.5px solid #393b67;
+  border-radius: 7px;
+  background: rgba(70,82,139,0.19);
+  color: #eceef3;
+  font-family: inherit;
+  transition: border 0.22s;
+}
+
+.input-field:focus {
+  border: 2.5px solid #47caff;
+  outline: none;
+}
+
+.btn {
+  padding: 12px 0;
+  border: none;
+  border-radius: 9px;
+  font-size: 1.07em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.2s;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg,#47caff,#ad4cfb 73%);
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(173,76,251,0.13);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(90deg,#ad4cfb 10%, #47caff 87%);
+  transform: translateY(-3px) scale(1.04);
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 3px;
+  font-size: 1em;
+  color: #ad4cfb;
+}
+.auth-link a {
+  color: #47caff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+}
+.auth-link a:hover {
+  text-decoration: underline;
+}
