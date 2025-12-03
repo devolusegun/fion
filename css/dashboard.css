@@ -95,3 +95,287 @@ body.dark {
         flex-direction: column;
     }
 }
+/* Icon Grid */
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 10px;
+}
+
+.icon-card {
+    background: var(--card-bg);
+    padding: 22px 10px;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    user-select: none;
+}
+
+/* Smooth hover animation */
+.icon-card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* SVG styling */
+.icon-svg {
+    margin-bottom: 10px;
+}
+
+.icon-svg svg {
+    width: 34px;
+    height: 34px;
+    fill: var(--text);
+    transition: 0.25s ease;
+}
+
+/* On hover, SVG glows */
+.icon-card:hover svg {
+    filter: drop-shadow(0 0 6px rgba(0, 136, 255, 0.5));
+}
+
+/* Dark mode improvements */
+body.dark .icon-card {
+    box-shadow: 0 2px 5px rgba(255,255,255,0.08);
+}
+
+body.dark .icon-card:hover {
+    box-shadow: 0 6px 15px rgba(255,255,255,0.18);
+}
+
+/* Carousel Card */
+.carousel-card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 0;
+    overflow: hidden;
+    margin-bottom: 20px; /* pushes menu grid down */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+body.dark .carousel-card {
+    background: #262626;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* Carousel Wrapper */
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+/* Slide Track */
+.slides {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Each Slide */
+.slide {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Carousel Dots */
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.carousel-dots .dot {
+    width: 9px;
+    height: 9px;
+    background: #d3d3d3;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+body.dark .carousel-dots .dot {
+    background: #555;
+}
+
+.carousel-dots .dot.active {
+    background: #6A4CFF;
+    transform: scale(1.2);
+}
+
+/* ===== FOOTER ===== */
+.dash-footer {
+    margin-top: 40px;
+    background: linear-gradient(135deg, #0b1226, #131b36);
+    padding: 40px 20px;
+    color: #dce4ff;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+body.dark .dash-footer {
+    background: linear-gradient(135deg, #0b1226, #131b36);
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+.footer-logo h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.footer-logo h2 span {
+    background: linear-gradient(90deg, #4dc3ff, #b36bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-logo .tagline {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.footer-links {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #ccd8ff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #7b86ff;
+}
+
+.footer-copy {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: 10px;
+}
+/* ===== IMPROVED FOOTER ===== */
+.improved-footer {
+    background: linear-gradient(135deg, #0b1023, #141b33);
+    padding: 50px 20px 25px;
+    color: #d6ddff;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin-top: 40px;
+}
+
+.footer-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+}
+
+/* Brand Section */
+.footer-logo {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: 0.5px;
+}
+.footer-logo span {
+    background: linear-gradient(90deg, #4cc3ff, #a668ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-desc {
+    font-size: 14px;
+    opacity: 0.85;
+    line-height: 1.5;
+    max-width: 250px;
+}
+
+/* Footer Social Icons */
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.footer-social a {
+    display: inline-flex;
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    transition: 0.3s ease;
+    color: #cdd7ff;
+}
+
+.footer-social a:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-3px);
+}
+
+/* Links */
+.footer-section h4 {
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.footer-section a {
+    display: block;
+    margin-bottom: 8px;
+    color: #cdd5ff;
+    font-size: 14px;
+    opacity: 0.85;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.footer-section a:hover {
+    color: white;
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* Bottom */
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 13px;
+    opacity: 0.7;
+    letter-spacing: 0.3px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .footer-wrapper {
+        text-align: center;
+    }
+    .footer-social {
+        justify-content: center;
+    }
+}
