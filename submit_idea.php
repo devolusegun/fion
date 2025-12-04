@@ -1,112 +1,179 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
+<?php include('header.php'); ?>
+<style>
+/* PAGE LAYOUT */
+.submit-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px 15px;
+    min-height: 100vh;
 }
 
-require "db.php";
-$user_id = $_SESSION['user_id'];
+/* SIDE BANNERS */
+.ad-banner {
+    width: 150px;
+    height: 100%;
+    background: var(--main-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: .9rem;
+    text-align: center;
+    padding: 10px;
+    animation: bannerFade 1.5s ease-in-out infinite alternate;
+}
+@keyframes bannerFade {
+    0% { opacity: 0.75; }
+    100% { opacity: 1; }
+}
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    $category = $_POST["category"];
-    $title = $_POST["title"];
-    $summary = $_POST["summary"];
-    $justification = $_POST["justification"];
-    $budget = $_POST["estimated_budget"];
-    $location = $_POST["location"];
-
-    // Create uploads folder if missing
-    if (!is_dir("uploads")) {
-        mkdir("uploads", 0777, true);
+/* FORM CARD */
+.form-card {
+    flex: 1;
+    max-width: 750px;
+    background: var(--light-bg);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-radius: 18px;
+    padding: 30px;
+    animation: fadeUp .8s ease forwards;
+    transform: translateY(20px);
+    opacity: 0;
+}
+@keyframes fadeUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
-
-    // File uploads
-    $qual = "uploads/" . time() . "_qual_" . basename($_FILES["qualification"]["name"]);
-    $prop = "uploads/" . time() . "_proposal_" . basename($_FILES["proposal"]["name"]);
-
-    move_uploaded_file($_FILES["qualification"]["tmp_name"], $qual);
-    move_uploaded_file($_FILES["proposal"]["tmp_name"], $prop);
-
-    // Insert into DB
-    $stmt = $conn->prepare("
-        INSERT INTO project_ideas 
-        (user_id, category, title, summary, justification, estimated_budget, location, qualification_doc, proposal_doc) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ");
-
-    $stmt->bind_param("issssssss", 
-        $user_id, 
-        $category, 
-        $title, 
-        $summary, 
-        $justification, 
-        $budget, 
-        $location, 
-        $qual, 
-        $prop
-    );
-
-    $stmt->execute();
-
-    // Create admin notification
-    $msg = "New project idea submitted in category: $category";
-    $notify = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
-    $notify->bind_param("is", $user_id, $msg);
-    $notify->execute();
-
-    echo "<p>Project idea submitted successfully.</p>";
-    exit;
 }
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Submit Project Idea</title>
-</head>
-<body>
+/* TITLES */
+.form-card h2 {
+    text-align: center;
+    color: var(--main-color);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
 
-<h2>Submit Project Idea</h2>
+/* FORM STYLING */
+.input-group {
+    margin-bottom: 15px;
+}
+.input-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .9rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-color);
+}
+.input-group input, 
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #dcdcdc;
+    outline: none;
+    font-size: .95rem;
+}
+textarea {
+    min-height: 100px;
+}
 
-<form method="POST" enctype="multipart/form-data">
+/* SUBMIT BUTTON */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--main-color);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 650;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+}
+.submit-btn:hover {
+    background: #0049cc;
+    transform: translateY(-2px);
+}
 
-    <label>Category</label><br>
-    <select name="category" required>
-        <option value="">-- Select Category --</option>
-        <option value="dredging_river_niger">Dredging of River Niger & Upper Benue (Inland Ports)</option>
-        <option value="steel_industry">Steel Industry & Heavy-Duty Equipment Factories</option>
-        <option value="retail_system_reform">Retail System Reform & National Co-operative Capital Base</option>
-        <option value="land_geopin_mapping">Land Mapping via Geopin & Ownership System</option>
-        <option value="water_dam_city_planning">Water Dam, Pipeborne Water & City/Town Planning</option>
-    </select>
-    <br><br>
+/* RESPONSIVE */
+@media screen and (max-width: 992px) {
+    .ad-banner { display: none; }
+    .submit-container { padding: 20px; }
+}
+</style>
 
-    <label>Project Title</label><br>
-    <input type="text" name="title" required><br><br>
+<div class="submit-container">
+    <!-- Left Banner -->
+    <div class="ad-banner">Google / Microsoft Ad<br><small>(Left)</small></div>
 
-    <label>Summary (Short Description)</label><br>
-    <textarea name="summary" rows="3" required></textarea><br><br>
+    <!-- Center Form Area -->
+    <div class="form-card">
+        <h2>Submit Your Innovative Idea </h2>
 
-    <label>Justification (Why is this important?)</label><br>
-    <textarea name="justification" rows="5" required></textarea><br><br>
+        <form action="submit_idea_process.php" method="POST" enctype="multipart/form-data">
+            
+            <div class="input-group">
+                <label><i class="fa fa-folder"></i> Category</label>
+                <select name="category" required>
+                    <option value="">Select Category</option>
+                    <option>Dredging of River Niger & Upper Benue (Inland Ports)</option>
+                    <option>Steel Industry & Heavy-Duty Equipment Factories</option>
+                    <option>Retail System Reform & National Co-operative Capital Base</option>
+                    <option>Land Mapping via Geopin & Ownership System</option>
+                    <option>Water Dam, Pipeborne Water & City/Town Planning</option>
+                </select>
+            </div>
 
-    <label>Estimated Budget</label><br>
-    <input type="text" name="estimated_budget" placeholder="e.g., ₦500 million or $2.3M"><br><br>
+            <div class="input-group">
+                <label><i class="fa fa-lightbulb"></i> Project Title</label>
+                <input type="text" name="title" placeholder="Enter idea title" required>
+            </div>
 
-    <label>Project Location</label><br>
-    <input type="text" name="location" placeholder="City, Region, State"><br><br>
+            <div class="input-group">
+                <label><i class="fa fa-align-left"></i> Summary</label>
+                <textarea name="summary" placeholder="Short summary…" required></textarea>
+            </div>
 
-    <label>Qualification Document</label><br>
-    <input type="file" name="qualification" required><br><br>
+            <div class="input-group">
+                <label><i class="fa fa-file-alt"></i> Justification</label>
+                <textarea name="justification" placeholder="Why is this idea important?…" required></textarea>
+            </div>
 
-    <label>Idea Proposal Document</label><br>
-    <input type="file" name="proposal" required><br><br>
+            <div class="input-group">
+                <label><i class="fa fa-money-bill"></i> Estimated Budget ($)</label>
+                <input type="number" name="budget" placeholder="Example: 5000" required>
+            </div>
 
-    <button type="submit">Submit Idea</button>
+            <div class="input-group">
+                <label><i class="fa fa-map-marker-alt"></i> Location</label>
+                <input type="text" name="location" placeholder="City/Country" required>
+            </div>
 
-</form>
+            <div class="input-group">
+                <label><i class="fa fa-file-upload"></i> Qualification Document</label>
+                <input type="file" name="qualification_doc" accept=".pdf,.doc,.docx" required>
+            </div>
 
-</body>
-</html>
+            <div class="input-group">
+                <label><i class="fa fa-file-upload"></i> Proposal Document</label>
+                <input type="file" name="proposal_doc" accept=".pdf,.doc,.docx" required>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Submit Idea
+            </button>
+        </form>
+    </div>
+
+    <!-- Right Banner -->
+    <div class="ad-banner">Google / Microsoft Ad<br><small>(Right)</small></div>
+</div>
+
+<?php include('footer.php'); ?>

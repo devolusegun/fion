@@ -62,11 +62,11 @@ if (!$user) {
                     <div class="slides">
 
                         <div class="slide">
-                            <img src="img/bamboo.png?text=Slide+1" alt="Slide 1">
+                            <img src="https://picsum.photos/id/183/2316/1544.jpg?text=Slide+1" alt="Slide 1">
                         </div>
 
                         <div class="slide">
-                            <img src="img/christmas_ball.png?text=Slide+2" alt="Slide 2">
+                            <img src="https://picsum.photos/id/242/2316/1544?text=Slide+2" alt="Slide 2">
                         </div>
 
                     </div>

@@ -14,39 +14,41 @@
 
   <!-- HERO CAROUSEL SECTION -->
   <section class="hero-carousel">
-    <div class="carousel-container">
+    <div class="hero-slider-wrapper">
 
-      <div class="carousel-slide active">
-        <img src="https://picsum.photos/1200/500?random=1" alt="Slide 1">
-        <div class="carousel-caption">
-          <h2>Empower Citizens. Shape the Future.</h2>
-          <p>Turn ideas into real changes with our digital civic platform.</p>
-          <a href="#" class="carousel-cta">Get Started</a>
+      <!-- Left Arrow -->
+      <button class="hero-arrow hero-arrow-left">&#10094;</button>
+
+      <div class="hero-slider">
+        <div class="hero-slide active">
+          <img src="https://picsum.photos/1600/600?random=11" alt="Slide 1">
+
+          <div class="hero-slide-content">
+            <h2 class="slide-title animate-text">Your Idea Can Transform The Nation</h2>
+            <p class="slide-sub">Join thousands contributing to a better Nigeria.</p>
+            <a href="#" class="slide-cta">Share Your Idea</a>
+          </div>
+        </div>
+
+        <div class="hero-slide">
+          <img src="https://picsum.photos/1600/600?random=22" alt="Slide 2">
+          <div class="hero-slide-content">
+            <h2 class="slide-title">Modern Citizens Engagement</h2>
+            <p class="slide-sub">Interactive tools built for national development.</p>
+          </div>
+        </div>
+
+        <div class="hero-slide">
+          <img src="https://picsum.photos/1600/600?random=33" alt="Slide 3">
+          <div class="hero-slide-content">
+            <h2 class="slide-title">Build. Vote. Improve.</h2>
+            <p class="slide-sub">A next-gen ideas platform for governance.</p>
+          </div>
         </div>
       </div>
 
-      <div class="carousel-slide">
-        <img src="https://picsum.photos/1200/500?random=2" alt="Slide 2">
-        <div class="carousel-caption">
-          <h2>Modern Governance Tools</h2>
-          <p>Transparent, fast, digital-first communication with citizens.</p>
-        </div>
-      </div>
-
-      <div class="carousel-slide">
-        <img src="https://picsum.photos/1200/500?random=3" alt="Slide 3">
-        <div class="carousel-caption">
-          <h2>Innovative Civic Engagement</h2>
-          <p>Ideas, ratings, discussions — all in one place.</p>
-        </div>
-      </div>
-
-      <!-- Navigation dots -->
-      <div class="carousel-dots">
-        <span class="dot active" data-slide="0"></span>
-        <span class="dot" data-slide="1"></span>
-        <span class="dot" data-slide="2"></span>
-      </div>
+      <!-- Right Arrow -->
+      <button class="hero-arrow hero-arrow-right">&#10095;</button>
 
     </div>
   </section>
@@ -184,36 +186,97 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <p>© 2025 FionCES. All rights reserved.</p>
+  <!-- ===== FOOTER ===== -->
+  <footer class="dash-footer improved-footer">
+    <div class="footer-wrapper">
+
+      <!-- Left: Logo & Brand -->
+      <div class="footer-section footer-brand">
+        <h2 class="footer-logo">Fion<span>CES</span></h2>
+        <p class="footer-desc">A modern civic ideation platform for smart governance.</p>
+
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="22">
+              <path fill="currentColor"
+                d="M22.46 6c-.77.35-1.6.58-2.46.69a4.27 4.27 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.06A4.24 4.24 0 0 0 16.11 4c-2.36 0-4.28 2-4.28 4.46 0 .35.03.7.1 1.03A12.11 12.11 0 0 1 3.14 5.1a4.58 4.58 0 0 0-.58 2.25 4.52 4.52 0 0 0 1.9 3.7 4.14 4.14 0 0 1-1.94-.56v.06c0 2.2 1.49 4.03 3.47 4.45a4.18 4.18 0 0 1-1.93.07 4.29 4.29 0 0 0 4 3 8.52 8.52 0 0 1-5.41 1.94c-.35 0-.7-.02-1.04-.06A12.08 12.08 0 0 0 8.1 21c7.73 0 11.96-6.64 11.96-12.4v-.57A8.93 8.93 0 0 0 22.46 6z" />
+            </svg>
+          </a>
+
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" width="22">
+              <path fill="currentColor"
+                d="M19 3A2.94 2.94 0 0 1 22 6v12a2.94 2.94 0 0 1-3 3H5a2.94 2.94 0 0 1-3-3V6a2.94 2.94 0 0 1 3-3h14M8.5 17v-7H6v7h2.5M7.2 8.3A1.45 1.45 0 1 0 7.2 5.4a1.45 1.45 0 0 0 0 2.9M18 17v-4.1c0-2-1.1-3-2.7-3a2.36 2.36 0 0 0-2.1 1.2h-.1V10H10v7h2.5v-3.5c0-.9.4-1.5 1.2-1.5s1.3.6 1.3 1.5V17H18z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Middle: Quick Links -->
+      <div class="footer-section footer-links">
+        <h4></h4>
+        <a href="#">Partnership</a>
+        <a href="#">Submit Idea</a>
+        <a href="#">Support</a>
+        <a href="#">Guidelines</a>
+      </div>
+
+      <!-- Right: Legal -->
+      <div class="footer-section footer-legal">
+        <h4>Explore</h4>
+        <a href="#">About us</a>
+        <a href="#">Our vision</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy policy</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>©
+        <?php echo date("Y"); ?> FionCES — Empowering civic innovation.
+      </p>
+    </div>
   </footer>
 
   <script>
-    let slides = document.querySelectorAll(".carousel-slide");
-    let dots = document.querySelectorAll(".dot");
-    let currentIndex = 0;
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".hero-slide");
+    const left = document.querySelector(".hero-arrow-left");
+    const right = document.querySelector(".hero-arrow-right");
 
-    function showSlide(index) {
+    function showSlide(i) {
       slides.forEach(s => s.classList.remove("active"));
-      dots.forEach(d => d.classList.remove("active"));
+      slides[i].classList.add("active");
 
-      slides[index].classList.add("active");
-      dots[index].classList.add("active");
+      // animate slide 1 text again if user returns to it
+      const title = slides[i].querySelector(".slide-title");
+      if (title) {
+        title.classList.remove("animate-text");
+        void title.offsetWidth; // restart animation
+        title.classList.add("animate-text");
+      }
     }
 
-    dots.forEach(dot => {
-      dot.addEventListener("click", () => {
-        currentIndex = parseInt(dot.dataset.slide);
-        showSlide(currentIndex);
-      });
-    });
+    function nextSlide() {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide(slideIndex);
+    }
 
-    // Auto-slide every 5 seconds
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-    }, 5000);
+    function prevSlide() {
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    right.onclick = nextSlide;
+    left.onclick = prevSlide;
+
+    setInterval(nextSlide, 5000);
+
+    showSlide(0);
   </script>
+
+
 </body>
 
 </html>
