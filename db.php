@@ -5,7 +5,7 @@ $DB_NAME = 'fion_backend';
 $DB_USER = 'root';
 $DB_PASS = '7evenc0d3s'; // set your password
 
-/**try {
+try {
     $pdo = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4", $DB_USER, $DB_PASS, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -14,7 +14,7 @@ $DB_PASS = '7evenc0d3s'; // set your password
     http_response_code(500);
     echo "DB connection failed: " . htmlspecialchars($e->getMessage());
     exit;
-}**/
+}
 // Create connection
 $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 

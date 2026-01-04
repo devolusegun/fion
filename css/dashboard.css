@@ -379,3 +379,60 @@ body.dark .dash-footer {
         justify-content: center;
     }
 }
+
+/* ===== Profile Card Enhancements ===== */
+.profile-card {
+  position: relative;
+}
+
+.status-badge {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.status-badge.incomplete {
+  background: #ffba08;
+  color: #000;
+}
+
+.status-badge.complete {
+  background: #2ec4b6;
+  color: #000;
+}
+
+.mini-progress {
+  width: 80%;
+  height: 5px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  margin: 6px auto 0;
+  overflow: hidden;
+}
+
+.mini-progress-fill {
+  height: 5px;
+  background: linear-gradient(90deg,#47caff,#ad4cfb);
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+
+/* Disabled action card */
+.disabled-card {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  position: relative;
+}
+
+.disabled-card small {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 6px;
+  color: #ffba08;
+  font-weight: 600;
+}

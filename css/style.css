@@ -619,3 +619,50 @@ body {
         justify-content: center;
     }
 }
+/* Register Page */
+.auth-errors {
+  background: rgba(255, 99, 99, 0.15);
+  border: 1px solid rgba(255, 99, 99, 0.4);
+  color: #ffb3b3;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+/* ===== Password Strength Meter ===== */
+.password-meter {
+  margin-top: 6px;
+}
+
+.strength-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+#strengthFill {
+  height: 6px;
+  width: 0%;
+  transition: width 0.3s ease, background 0.3s ease;
+  border-radius: 6px;
+}
+
+.level-0 { background: transparent; }
+.level-1 { background: #e63946; }   /* red */
+.level-2 { background: #f77f00; }   /* orange */
+.level-3 { background: #fcbf49; }   /* yellow */
+.level-4 { background: #2ec4b6; }   /* green */
+
+.password-meter small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

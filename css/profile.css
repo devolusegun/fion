@@ -1,0 +1,17 @@
+.success-msg {
+  background: rgba(46,196,182,0.15);
+  border: 1px solid rgba(46,196,182,0.4);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #9fffe7;
+}
+
+.success-msg a {
+  display: block;
+  margin-top: 8px;
+  color: #47caff;
+  text-decoration: none;
+  font-weight: 600;
+}

@@ -1,0 +1,75 @@
+/* -------- layout (keeps prior rules) -------- */
+.page-wrapper {
+    display: grid;
+    grid-template-columns: 140px minmax(360px, 780px) 140px;
+    gap: 20px;
+    padding: 22px;
+    align-items: start;
+}
+
+/* ad banners */
+.ad-banner {
+    background: linear-gradient(180deg,#f4f5ff,#eef1ff);
+    border-radius: 12px;
+    height: min(72vh, 780px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#444;
+    font-weight:600;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+/* form container */
+.form-container {
+    background: linear-gradient(180deg, #ffffff, #fbfbff);
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(47,31,92,0.08);
+}
+.form-title { color: #7d33ff; margin-bottom: 18px; }
+
+/* input styles */
+form label { font-weight:700; margin-top:12px; display:block; color:#333;}
+form input[type="text"], form input[type="file"], form input[type="number"], form select, form textarea {
+    padding: 10px 12px; border-radius:8px; border:1px solid #e6e6f0; width:100%; font-size:15px; box-sizing:border-box;
+}
+textarea { min-height:110px; resize:vertical; }
+
+/* submit */
+.submit-btn {
+    background: linear-gradient(90deg,#7d33ff,#a763ff);
+    border:none; color:#fff; padding:12px 18px; border-radius:10px; font-weight:700; cursor:pointer; margin-top:16px;
+}
+.submit-btn:disabled { opacity:0.6; transform:none; cursor:not-allowed; }
+
+/* errors inline */
+.form-errors .err-row { color:#8b1e7a; background:#fff1ff; padding:8px 10px; border-radius:6px; margin-top:8px; font-weight:600; }
+
+/* upload progress */
+.upload-progress { display:none; margin-top:14px; align-items:center; gap:12px; }
+.progress-bar-outer { width: 100%; height: 12px; background:#eef3ff; border-radius:8px; overflow:hidden; }
+.progress-fill { height:100%; width:0%; background: linear-gradient(90deg,#7d33ff,#4c9bff); transition: width .25s ease; }
+.progress-text { min-width:42px; text-align:right; color:#333; font-weight:700; }
+
+/* OVERLAY (fallback) */
+.overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; z-index:1000; color:#fff; flex-direction:column; gap:12px; }
+.spinner { border:5px solid rgba(255,255,255,0.18); border-top:5px solid #7d33ff; width:46px; height:46px; border-radius:50%; animation:spin 1s linear infinite; }
+
+/* modals */
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; z-index:1200; padding:20px; }
+.modal-card { background:#fff; padding:22px; border-radius:12px; width:100%; max-width:540px; text-align:center; box-shadow:0 10px 30px rgba(47,31,92,0.12); border-top:6px solid #7d33ff; }
+.modal-card h3 { color:#5a1fbf; margin:0 0 8px 0; font-size:20px; }
+.modal-card p { color:#333; margin:0 0 12px 0; }
+.modal-actions { display:flex; gap:12px; justify-content:center; margin-top:14px; }
+.ok-btn { padding:10px 16px; border-radius:10px; border:none; background:#7d33ff; color:#fff; cursor:pointer; font-weight:700; }
+.ok-btn.alt { background:#f4f4ff; color:#5a1fbf; border:2px solid rgba(125,51,255,0.12); }
+.error-list .err-row { color:#7f1b1b; background:#fff6f6; padding:10px; border-radius:8px; margin-bottom:8px; }
+
+/* small screens: hide ads */
+@media (max-width: 992px) {
+    .page-wrapper { grid-template-columns: 1fr; padding:14px; }
+    .ad-banner { display:none; }
+    .form-container { margin: 0 auto; max-width: 95vw; }
+}
