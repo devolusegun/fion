@@ -30,8 +30,8 @@
       <button class="btn" type="submit">Sign in</button>
 
       <div class="link-row">
-        <a href="forgot.php" class="small-link">Forgot password?</a>
-        <span style="color:var(--muted);font-size:13px">No account? <a href="#" class="small-link">Sign up</a></span>
+        <a href="forgot" class="small-link">Forgot password?</a>
+        <span style="color:var(--muted);font-size:13px">No account? <a href="register" class="small-link">Sign up</a></span>
       </div>
     </form>
   </div>

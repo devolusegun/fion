@@ -37,10 +37,14 @@ $profile = $p->get_result()->fetch_assoc();
 $completed = 0;
 $total = 4;
 
-if (!empty($profile['phone']))   $completed++;
-if (!empty($profile['address'])) $completed++;
-if (!empty($profile['dob']))     $completed++;
-if (!empty($profile['gender']))  $completed++;
+if (!empty($profile['phone']))
+    $completed++;
+if (!empty($profile['address']))
+    $completed++;
+if (!empty($profile['dob']))
+    $completed++;
+if (!empty($profile['gender']))
+    $completed++;
 
 $percent = intval(($completed / $total) * 100);
 
@@ -64,10 +68,27 @@ if ($percent === 100 && !$profile['profile_completed']) {
 
     <!-- Top Navigation -->
     <nav class="top-nav">
-        <div class="logo">FION</div>
+        <div class="logo">
+            FION
+            <!-- later replace text with <img src="logo.png" alt="FION"> -->
+        </div>
+
         <div class="nav-right">
-            <button id="modeToggle" class="mode-btn">🌙</button>
-            <div class="user-name"><?php echo htmlspecialchars($user['firstname']); ?></div>
+            <a href="donate.php" class="donate-btn">Donate</a>
+
+            <button id="modeToggle" class="mode-btn" aria-label="Toggle dark mode">
+                <svg class="mode-icon" viewBox="0 0 24 24" width="20" aria-hidden="true">
+                    <path fill="currentColor" d="M21.64 13a1 1 0 0 0-1.05-.14
+                 8 8 0 0 1-3.37.73
+                 8.15 8.15 0 0 1-8.14-8.14
+                 8.59 8.59 0 0 1 .25-2
+                 1 1 0 0 0-1.33-1.15
+                 A10 10 0 1 0 22 14.05
+                 a1 1 0 0 0-.36-1.05Z" />
+                </svg>
+            </button>
+
+            <a href="logout.php" class="logout-link">Logout</a>
         </div>
     </nav>
 
@@ -132,7 +153,8 @@ if ($percent === 100 && !$profile['profile_completed']) {
                         <div class="icon-svg">
                             <!-- Bell Icon -->
                             <svg viewBox="0 0 24 24">
-                                <path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5l-2 2v1h16v-1l-2-2z" />
+                                <path
+                                    d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5l-2 2v1h16v-1l-2-2z" />
                             </svg>
                         </div>
                         <p>Retail System Reform</p>
@@ -153,9 +175,9 @@ if ($percent === 100 && !$profile['profile_completed']) {
 
 
                 <!--<a href="profile.php" class="icon-card">
-                    <div class="icon-svg">
-                        <!-- User Icon
-                        <svg viewBox="0 0 24 24">
+                    <div class="icon-svg">-->
+                <!-- User Icon-->
+                <!--<svg viewBox="0 0 24 24">
                             <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-5 0-9 2.5-9 6v2h18v-2c0-3.5-4-6-9-6z" />
                         </svg>
                     </div>
@@ -164,7 +186,9 @@ if ($percent === 100 && !$profile['profile_completed']) {
                 <a href="profile.php" class="icon-card profile-card">
 
                     <?php if ($percent < 100): ?>
-                        <span class="status-badge incomplete"><?= $percent ?>%</span>
+                        <span class="status-badge incomplete">
+                            <?= $percent ?>%
+                        </span>
                     <?php else: ?>
                         <span class="status-badge complete">✔</span>
                     <?php endif; ?>
@@ -192,7 +216,8 @@ if ($percent === 100 && !$profile['profile_completed']) {
                         <div class="icon-svg">
                             <!-- Gear Icon -->
                             <svg viewBox="0 0 24 24">
-                                <path d="M12 8a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm9.4 4a7.4 7.4 0 0 0-.2-1.8l2.1-1.6-2-3.4-2.5 1a7.4 7.4 0 0 0-1.6-.9L16.3 2h-4.6l-.9 2.3a7.4 7.4 0 0 0-1.6.9l-2.5-1-2 3.4 2.1 1.6a7.4 7.4 0 0 0 0 3.5L2.7 14l2 3.4 2.5-1a7.4 7.4 0 0 0 1.6.9l.9 2.3h4.6l.9-2.3a7.4 7.4 0 0 0 1.6-.9l2.5 1 2-3.4-2.1-1.6a7.4 7.4 0 0 0 .2-1.8z" />
+                                <path
+                                    d="M12 8a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm9.4 4a7.4 7.4 0 0 0-.2-1.8l2.1-1.6-2-3.4-2.5 1a7.4 7.4 0 0 0-1.6-.9L16.3 2h-4.6l-.9 2.3a7.4 7.4 0 0 0-1.6.9l-2.5-1-2 3.4 2.1 1.6a7.4 7.4 0 0 0 0 3.5L2.7 14l2 3.4 2.5-1a7.4 7.4 0 0 0 1.6.9l.9 2.3h4.6l.9-2.3a7.4 7.4 0 0 0 1.6-.9l2.5 1 2-3.4-2.1-1.6a7.4 7.4 0 0 0 .2-1.8z" />
                             </svg>
                         </div>
                         <p>Water Dam, Pipeborne Water & Planning</p>
@@ -208,8 +233,12 @@ if ($percent === 100 && !$profile['profile_completed']) {
 
             <!-- Personal Info -->
             <div class="card profile-card">
-                <h3>Welcome, <?php echo htmlspecialchars($user['firstname']); ?></h3>
-                <p><?php echo htmlspecialchars($user['email']); ?></p>
+                <h3>Welcome,
+                    <?php echo htmlspecialchars($user['firstname']); ?>
+                </h3>
+                <p>
+                    <?php echo htmlspecialchars($user['email']); ?>
+                </p>
             </div>
 
             <!-- Quick Links -->
@@ -226,7 +255,9 @@ if ($percent === 100 && !$profile['profile_completed']) {
                 <?php else: ?>
                     <div class="card action-card disabled-card">
                         Submit Project Idea
-                        <small>Complete profile (<?= $percent ?>%)</small>
+                        <small>Complete profile (
+                            <?= $percent ?>%)
+                        </small>
                     </div>
                 <?php endif; ?>
 
@@ -246,7 +277,9 @@ if ($percent === 100 && !$profile['profile_completed']) {
             <div class="card notify-card">
                 <h4>Your Notifications</h4>
                 <?php while ($row = $notifications->fetch_assoc()): ?>
-                    <p>• <?= $row['message'] ?></p>
+                    <p>•
+                        <?= $row['message'] ?>
+                    </p>
                 <?php endwhile; ?>
             </div>
 
@@ -306,17 +339,25 @@ if ($percent === 100 && !$profile['profile_completed']) {
                 <p class="footer-desc">A modern civic ideation platform for smart governance.</p>
 
                 <div class="footer-social">
-                    <a href="#" aria-label="Twitter">
-                        <svg viewBox="0 0 24 24" width="22">
+                    <a href="https://x.com/FION__NG" aria-label="X (formerly Twitter)">
+                        <svg viewBox="0 0 24 24" width="22" aria-hidden="true">
                             <path fill="currentColor"
-                                d="M22.46 6c-.77.35-1.6.58-2.46.69a4.27 4.27 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.06A4.24 4.24 0 0 0 16.11 4c-2.36 0-4.28 2-4.28 4.46 0 .35.03.7.1 1.03A12.11 12.11 0 0 1 3.14 5.1a4.58 4.58 0 0 0-.58 2.25 4.52 4.52 0 0 0 1.9 3.7 4.14 4.14 0 0 1-1.94-.56v.06c0 2.2 1.49 4.03 3.47 4.45a4.18 4.18 0 0 1-1.93.07 4.29 4.29 0 0 0 4 3 8.52 8.52 0 0 1-5.41 1.94c-.35 0-.7-.02-1.04-.06A12.08 12.08 0 0 0 8.1 21c7.73 0 11.96-6.64 11.96-12.4v-.57A8.93 8.93 0 0 0 22.46 6z" />
+                                d="M18.245 2H21l-6.39 7.3L22 22h-6.8l-4.64-6.18L4.9 22H2l6.86-7.84L2 2h6.97l4.2 5.6L18.245 2Zm-1.19 18h1.87L8.04 4H6.06l10.995 16Z" />
                         </svg>
                     </a>
 
-                    <a href="#" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" width="22">
+                    <a href="https://www.instagram.com/foundation.industrialization?igsh=OTZkOGp5NGRjcjNt"
+                        aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="22" aria-hidden="true">
                             <path fill="currentColor"
-                                d="M19 3A2.94 2.94 0 0 1 22 6v12a2.94 2.94 0 0 1-3 3H5a2.94 2.94 0 0 1-3-3V6a2.94 2.94 0 0 1 3-3h14M8.5 17v-7H6v7h2.5M7.2 8.3A1.45 1.45 0 1 0 7.2 5.4a1.45 1.45 0 0 0 0 2.9M18 17v-4.1c0-2-1.1-3-2.7-3a2.36 2.36 0 0 0-2.1 1.2h-.1V10H10v7h2.5v-3.5c0-.9.4-1.5 1.2-1.5s1.3.6 1.3 1.5V17H18z" />
+                                d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7Zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10Zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.51 5.51 0 0 0 12 7.5Zm0 9A3.5 3.5 0 1 1 15.5 13 3.5 3.5 0 0 1 12 16.5Zm5.75-9.75a1.25 1.25 0 1 0 1.25 1.25 1.25 1.25 0 0 0-1.25-1.25Z" />
+                        </svg>
+                    </a>
+
+                    <a href="https://www.facebook.com/share/1BrSgZvhbn/" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" width="22" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M13 3h4a1 1 0 0 1 1 1v3h-3c-.55 0-1 .45-1 1v3h4l-.5 4H14v9h-4v-9H7v-4h3V8c0-2.76 2.24-5 5-5Z" />
                         </svg>
                     </a>
                 </div>
@@ -343,7 +384,9 @@ if ($percent === 100 && !$profile['profile_completed']) {
         </div>
 
         <div class="footer-bottom">
-            <p>© <?php echo date("Y"); ?> FionCES — Empowering civic innovation.</p>
+            <p>©
+                <?php echo date("Y"); ?> FionCES — Empowering civic innovation.
+            </p>
         </div>
     </footer>
 

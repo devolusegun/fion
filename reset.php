@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$row || new DateTime() > new DateTime($row['expires_at'])) {
         $_SESSION['flash'] = 'Invalid or expired token.';
-        header('Location: index.php'); exit;
+        header('Location: login.php'); exit;
     }
 
     // update password
@@ -32,14 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $del = $pdo->prepare('DELETE FROM password_resets WHERE email = ?');
     $del->execute([$row['email']]);
 
-    $_SESSION['flash'] = 'Password updated. You may sign in.';
-    header('Location: index.php'); exit;
+    $_SESSION['flash_success'] = 'Password updated. You may sign in.';
+    header('Location: login.php'); exit;
 }
 
 // GET: show form
 if (!$token) {
     $_SESSION['flash'] = 'Missing token.';
-    header('Location: index.php'); exit;
+    header('Location: login.php'); exit;
 }
 
 // optional: check token existence/expiry for UX
@@ -48,7 +48,7 @@ $stmt->execute([$token]);
 $row = $stmt->fetch();
 if (!$row || new DateTime() > new DateTime($row['expires_at'])) {
     $_SESSION['flash'] = 'Invalid or expired token.';
-    header('Location: index.php'); exit;
+    header('Location: login.php'); exit;
 }
 ?>
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

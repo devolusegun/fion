@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   }
 }
 
-$verifyLink = "https://fion.ng/verify_email.php?token=" . $token;
+$verifyLink = "https://fion.ng/verify_email?token=" . $token;
 
 $subject = "Verify your Fion account";
 

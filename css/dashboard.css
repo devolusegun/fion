@@ -25,15 +25,81 @@ body.dark {
     padding: 15px 20px;
     background: var(--card-bg);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
 }
 
+/* Optional subtle separation while scrolling */
+body.dark .top-nav {
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+}
+
+/* Logo */
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+/* Right section */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Donate CTA */
+.donate-btn {
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #47caff, #ad4cfb);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.donate-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(173,76,251,0.35);
+}
+
+/* Logout */
+.logout-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+.logout-link:hover {
+    opacity: 1;
+}
+
+/* Dark mode button */
 .mode-btn {
-    margin-right: 20px;
-    cursor: pointer;
     background: none;
     border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
     font-size: 20px;
 }
+.mode-icon {
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.mode-btn:hover .mode-icon {
+    transform: rotate(-12deg);
+}
+
 
 /* Layout Grid */
 .container {

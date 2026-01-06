@@ -59,3 +59,10 @@ a.small-link{font-size:13px;color:var(--accent);text-decoration:none}
   body{padding:16px}
   .card{padding:18px;border-radius:10px}
 }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

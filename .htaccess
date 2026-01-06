@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Optional: redirect .php URLs to clean ones
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?]
+RewriteRule ^ %1 [R=301,L]
+
+<FilesMatch "\.(env|sql|log|ini)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>

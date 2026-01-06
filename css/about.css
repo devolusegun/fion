@@ -196,3 +196,23 @@
         gap: 16px;
     }
 }
+
+/* Donate CTA */
+.donate-btn {
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #47caff;
+  border: 1.5px solid rgba(71,202,255,0.6);
+  background: rgba(71,202,255,0.08);
+  transition: all 0.25s ease;
+}
+
+.donate-btn:hover {
+  background: linear-gradient(90deg,#47caff,#ad4cfb);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 22px rgba(173,76,251,0.25);
+}
+
