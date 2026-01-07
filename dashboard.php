@@ -25,6 +25,8 @@ $notif->bind_param("i", $user_id);
 $notif->execute();
 $notifications = $notif->get_result();
 
+
+
 if (!$user) {
     die("User details not found.");
 }
@@ -52,7 +54,71 @@ if ($percent === 100 && !$profile['profile_completed']) {
     $conn->query("UPDATE registered SET profile_completed=1 WHERE id=$user_id");
 }
 
+// ---------- CONTRIBUTION METRICS ----------
+
+// Profile completion (already used elsewhere)
+$p = $conn->prepare("SELECT phone, address, dob, gender FROM registered WHERE id=?");
+$p->bind_param("i", $user_id);
+$p->execute();
+$profile = $p->get_result()->fetch_assoc();
+
+$profileFields = ['phone', 'address', 'dob', 'gender'];
+$filled = 0;
+foreach ($profileFields as $f) {
+    if (!empty($profile[$f]))
+        $filled++;
+}
+$profilePercent = ($filled / count($profileFields)) * 100;
+
+// Ideas submitted
+$q1 = $conn->prepare("SELECT COUNT(*) c FROM project_ideas WHERE user_id=?");
+$q1->bind_param("i", $user_id);
+$q1->execute();
+$ideasSubmitted = $q1->get_result()->fetch_assoc()['c'];
+
+// Ideas approved
+$q2 = $conn->prepare("SELECT COUNT(*) c FROM project_ideas WHERE user_id=? AND status='approved'");
+$q2->bind_param("i", $user_id);
+$q2->execute();
+$ideasApproved = $q2->get_result()->fetch_assoc()['c'];
+
+// Engagements (reactions user made)
+$q3 = $conn->prepare("SELECT COUNT(*) c FROM idea_reactions WHERE user_id=?");
+$q3->bind_param("i", $user_id);
+$q3->execute();
+$engagements = $q3->get_result()->fetch_assoc()['c'];
+
+$ideasScore = min($ideasSubmitted * 10, 30);
+$approvedScore = min($ideasApproved * 15, 30);
+$engagementScore = min($engagements * 2, 20);
+
+$progress = ($profilePercent * 0.2) + $ideasScore + $approvedScore + $engagementScore;
+
+$progress = min(100, round($progress));
+
+if ($progress < 30) {
+    $progressLabel = "Getting started";
+} elseif ($progress < 60) {
+    $progressLabel = "Building momentum";
+} elseif ($progress < 85) {
+    $progressLabel = "Influencing ideas";
+} else {
+    $progressLabel = "National contributor";
+}
+
+// ---------- Pending Reviews ----------
+$pendingCount = 0;
+$pending = $conn->query("SELECT COUNT(*) AS total FROM project_ideas WHERE status = 'pending'");
+
+if ($row = $pending->fetch_assoc()) {
+    $pendingCount = (int) $row['total'];
+}
+
+// ---------- LATEST NEWS ----------
+$news = $conn->query("SELECT p.id, p.title, p.category, p.created_at, r.firstname FROM project_ideas p JOIN registered r ON r.id = p.user_id WHERE p.status = 'approved' ORDER BY p.created_at DESC LIMIT 5");
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -173,16 +239,33 @@ if ($percent === 100 && !$profile['profile_completed']) {
                     </div>
                 </a>
 
-
-                <!--<a href="profile.php" class="icon-card">
-                    <div class="icon-svg">-->
-                <!-- User Icon-->
-                <!--<svg viewBox="0 0 24 24">
-                            <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-5 0-9 2.5-9 6v2h18v-2c0-3.5-4-6-9-6z" />
-                        </svg>
+                <a href="ideas.php?category=water_dam_city_planning" class="icon-card">
+                    <div>
+                        <div class="icon-svg">
+                            <!-- Gear Icon -->
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 8a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm9.4 4a7.4 7.4 0 0 0-.2-1.8l2.1-1.6-2-3.4-2.5 1a7.4 7.4 0 0 0-1.6-.9L16.3 2h-4.6l-.9 2.3a7.4 7.4 0 0 0-1.6.9l-2.5-1-2 3.4 2.1 1.6a7.4 7.4 0 0 0 0 3.5L2.7 14l2 3.4 2.5-1a7.4 7.4 0 0 0 1.6.9l.9 2.3h4.6l.9-2.3a7.4 7.4 0 0 0 1.6-.9l2.5 1 2-3.4-2.1-1.6a7.4 7.4 0 0 0 .2-1.8z" />
+                            </svg>
+                        </div>
+                        <p>Dam, Pipeborne Water & Planning</p>
                     </div>
-                    <p>Profile</p>
-                </a>-->
+                </a>
+
+                <a href="ideas.php?category=agriculture_food_technology" class="icon-card">
+                    <div>
+                        <div class="icon-svg">
+                            <!-- Gear Icon -->
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 8a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm9.4 4a7.4 7.4 0 0 0-.2-1.8l2.1-1.6-2-3.4-2.5 1a7.4 7.4 0 0 0-1.6-.9L16.3 2h-4.6l-.9 2.3a7.4 7.4 0 0 0-1.6.9l-2.5-1-2 3.4 2.1 1.6a7.4 7.4 0 0 0 0 3.5L2.7 14l2 3.4 2.5-1a7.4 7.4 0 0 0 1.6.9l.9 2.3h4.6l.9-2.3a7.4 7.4 0 0 0 1.6-.9l2.5 1 2-3.4-2.1-1.6a7.4 7.4 0 0 0 .2-1.8z" />
+                            </svg>
+                        </div>
+                        <p>Agriculture & Food Technology</p>
+                    </div>
+                </a>
+
+                <!-- User Icon-->
                 <a href="profile.php" class="icon-card profile-card">
 
                     <?php if ($percent < 100): ?>
@@ -210,20 +293,6 @@ if ($percent === 100 && !$profile['profile_completed']) {
 
                 </a>
 
-
-                <a href="ideas.php?category=water_dam_city_planning" class="icon-card">
-                    <div>
-                        <div class="icon-svg">
-                            <!-- Gear Icon -->
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M12 8a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm9.4 4a7.4 7.4 0 0 0-.2-1.8l2.1-1.6-2-3.4-2.5 1a7.4 7.4 0 0 0-1.6-.9L16.3 2h-4.6l-.9 2.3a7.4 7.4 0 0 0-1.6.9l-2.5-1-2 3.4 2.1 1.6a7.4 7.4 0 0 0 0 3.5L2.7 14l2 3.4 2.5-1a7.4 7.4 0 0 0 1.6.9l.9 2.3h4.6l.9-2.3a7.4 7.4 0 0 0 1.6-.9l2.5 1 2-3.4-2.1-1.6a7.4 7.4 0 0 0 .2-1.8z" />
-                            </svg>
-                        </div>
-                        <p>Water Dam, Pipeborne Water & Planning</p>
-                    </div>
-                </a>
-
             </div>
 
         </section>
@@ -231,14 +300,39 @@ if ($percent === 100 && !$profile['profile_completed']) {
         <!-- RIGHT COLUMN -->
         <section class="right-column">
 
-            <!-- Personal Info -->
-            <div class="card profile-card">
-                <h3>Welcome,
-                    <?php echo htmlspecialchars($user['firstname']); ?>
-                </h3>
-                <p>
-                    <?php echo htmlspecialchars($user['email']); ?>
-                </p>
+            <!-- USER WELCOME CARD -->
+            <div class="welcome-card">
+
+                <div class="welcome-left">
+                    <div class="avatar">
+                        <?= strtoupper(substr($user['firstname'], 0, 1)) ?>
+                    </div>
+
+                    <div class="welcome-text">
+                        <h2>Welcome,
+                            <?= htmlspecialchars($user['firstname']) ?>
+                        </h2>
+                        <p class="email">
+                            <?= htmlspecialchars($user['email']) ?>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="welcome-right">
+                    <span class="contrib-badge">
+                        <?= $progressLabel ?>
+                    </span>
+
+                    <div class="profile-meter">
+                        <div class="meter-bar">
+                            <div class="meter-fill" style="width: <?= $profilePercent ?>%"></div>
+                        </div>
+                        <small>
+                            <?= round($profilePercent) ?>% profile complete
+                        </small>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Quick Links -->
@@ -268,34 +362,84 @@ if ($percent === 100 && !$profile['profile_completed']) {
             </div>
 
             <!-- Latest News MOVED HERE -->
-            <h2>Latest News</h2>
-            <div class="card news-card">News Item 1</div>
-            <div class="card news-card">News Item 2</div>
-            <div class="card news-card">News Item 3</div>
+            <div class="card news-card">
+                <h3>Latest News</h3>
+
+                <?php if ($news->num_rows === 0): ?>
+                    <p class="muted">No platform updates yet.</p>
+                <?php endif; ?>
+
+                <?php while ($n = $news->fetch_assoc()): ?>
+                    <a href="idea.php?id=<?= $n['id'] ?>" class="news-item">
+                        <div class="news-title">
+                            <?= htmlspecialchars($n['title']) ?>
+                        </div>
+
+                        <div class="news-meta">
+                            <span class="news-category">
+                                <?= ucwords(str_replace('_', ' ', $n['category'])) ?>
+                            </span>
+                            •
+                            <span>
+                                <?= date("M j", strtotime($n['created_at'])) ?>
+                            </span>
+                        </div>
+                    </a>
+                <?php endwhile; ?>
+            </div>
 
             <!-- User Notifications -->
             <div class="card notify-card">
                 <h4>Your Notifications</h4>
+
+                <?php if ($notifications->num_rows === 0): ?>
+                    <p class="muted">No new notifications.</p>
+                <?php endif; ?>
+
                 <?php while ($row = $notifications->fetch_assoc()): ?>
-                    <p>•
-                        <?= $row['message'] ?>
-                    </p>
+                    <div class="notify-item">
+                        <span class="notify-dot"></span>
+                        <div class="notify-text">
+                            <?= htmlspecialchars($row['message']) ?>
+                        </div>
+                    </div>
                 <?php endwhile; ?>
             </div>
 
             <!-- Admin Notifications -->
-            <div class="card notify-card">
+            <div class="card notify-card admin-card">
                 <h4>Pending Reviews</h4>
-                <p>3 project ideas awaiting admin review.</p>
+
+                <?php if ($pendingCount === 0): ?>
+                    <p class="muted">No pending ideas.</p>
+                <?php else: ?>
+                    <div class="admin-alert">
+                        <span class="admin-badge">
+                            <?= $pendingCount ?>
+                        </span>
+                        <p>
+                            <?= $pendingCount ?> project idea
+                            <?= $pendingCount > 1 ? 's' : '' ?>
+                            awaiting admin review.
+                        </p>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <!-- Progress -->
             <div class="card progress-card">
-                <h4>Your Contribution Progress</h4>
+                <h3>Your Contribution Progress</h3>
+
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 60%;"></div>
+                    <div class="progress-fill" style="width: <?= $progress ?>%"></div>
                 </div>
-                <p>60% – Keep going!</p>
+
+                <div class="progress-meta">
+                    <strong>
+                        <?= $progress ?>%
+                    </strong> —
+                    <?= $progressLabel ?>
+                </div>
             </div>
 
         </section>
@@ -335,7 +479,7 @@ if ($percent === 100 && !$profile['profile_completed']) {
 
             <!-- Left: Logo & Brand -->
             <div class="footer-section footer-brand">
-                <h2 class="footer-logo">Fion<span>CES</span></h2>
+                <h2 class="footer-logo"><span>FION</span></h2>
                 <p class="footer-desc">A modern civic ideation platform for smart governance.</p>
 
                 <div class="footer-social">
@@ -385,7 +529,7 @@ if ($percent === 100 && !$profile['profile_completed']) {
 
         <div class="footer-bottom">
             <p>©
-                <?php echo date("Y"); ?> FionCES — Empowering civic innovation.
+                <?php echo date("Y"); ?> Fion — Empowering civic innovation.
             </p>
         </div>
     </footer>

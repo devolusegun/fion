@@ -67,16 +67,34 @@ $stmt = $conn->prepare("
 $stmt->bind_param("s", $category);
 $stmt->execute();
 $ideas = $stmt->get_result();
+
+
+$statsQ = $conn->prepare("
+    SELECT 
+      COUNT(*) total,
+      SUM(status='approved') approved
+    FROM project_ideas
+    WHERE category=?
+");
+$statsQ->bind_param("s", $category);
+$statsQ->execute();
+$stats = $statsQ->get_result()->fetch_assoc();
+
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title><?= htmlspecialchars($categories[$category]) ?></title>
+    <title>
+        <?= htmlspecialchars($categories[$category]) ?>
+    </title>
     <link rel="stylesheet" href="css/ideas.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
+    <?php include __DIR__ . "/partials/idea_nav.php"; ?>
 
     <div class="page-layout">
 
@@ -100,11 +118,19 @@ $ideas = $stmt->get_result();
                         <?= htmlspecialchars($categories[$category]) ?>
                     </h1>
 
-                    <?php if (!empty($banner['subtitle'])): ?>
-                        <p class="category-subtitle">
-                            <?= htmlspecialchars($banner['subtitle']) ?>
-                        </p>
-                    <?php endif; ?>
+                    <p class="category-subtitle">
+                        <?= htmlspecialchars($banner['subtitle']) ?>
+                    </p>
+
+                    <div class="category-stats">
+                        <span>
+                            <?= $stats['approved'] ?> Approved Ideas
+                        </span>
+                        <span>
+                            <?= $stats['total'] ?> Total Submissions
+                        </span>
+                    </div>
+
 
                 </div>
             </section>
@@ -119,21 +145,51 @@ $ideas = $stmt->get_result();
                 <?php while ($idea = $ideas->fetch_assoc()): ?>
                     <a href="idea.php?id=<?= $idea['id'] ?>" class="idea-card">
 
-                        <h3><?= htmlspecialchars($idea['title']) ?></h3>
+                        <div class="idea-header">
+                            <h3>
+                                <?= htmlspecialchars($idea['title']) ?>
+                            </h3>
+                            <span class="idea-date">
+                                <?= date("M j, Y", strtotime($idea['created_at'])) ?>
+                            </span>
+                        </div>
 
-                        <p class="summary">
+                        <p class="idea-summary">
                             <?= nl2br(htmlspecialchars(substr($idea['summary'], 0, 220))) ?>…
                         </p>
 
-                        <div class="meta">
-                            <span>By <?= htmlspecialchars($idea['firstname']) ?></span>
-                            <span><?= date("M j, Y", strtotime($idea['created_at'])) ?></span>
+                        <div class="idea-meta">
+                            <span>By
+                                <?= htmlspecialchars($idea['firstname']) ?>
+                            </span>
                         </div>
 
-                        <div class="reactions">
-                            ❤️ <?= $idea['likes'] ?>
-                            👍 <?= $idea['upvotes'] ?>
-                            👎 <?= $idea['downvotes'] ?>
+                        <div class="idea-actions">
+                            <div class="idea-actions" data-idea="<?= $idea['id'] ?>">
+
+                                <button class="reaction-btn" data-reaction="upvote">
+                                    👍 <span>
+                                        <?= $idea['upvotes'] ?>
+                                    </span>
+                                </button>
+
+                                <button class="reaction-btn" data-reaction="downvote">
+                                    👎 <span>
+                                        <?= $idea['downvotes'] ?>
+                                    </span>
+                                </button>
+
+                                <button class="reaction-btn" data-reaction="like">
+                                    ❤️ <span>
+                                        <?= $idea['likes'] ?>
+                                    </span>
+                                </button>
+
+                                <button class="reaction-btn share">
+                                    🔗 Share
+                                </button>
+
+                            </div>
                         </div>
 
                     </a>
@@ -200,9 +256,53 @@ $ideas = $stmt->get_result();
         </div>
 
         <div class="footer-bottom">
-            <p>© <?php echo date("Y"); ?> FionCES — Empowering civic innovation.</p>
+            <p>©
+                <?php echo date("Y"); ?> FionCES — Empowering civic innovation.
+            </p>
         </div>
     </footer>
+
+    <script>
+        window.addEventListener("scroll", () => {
+            const nav = document.getElementById("ideaNav");
+            if (window.scrollY > 20) {
+                nav.classList.add("scrolled");
+            } else {
+                nav.classList.remove("scrolled");
+            }
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll(".reaction-btn").forEach(btn => {
+            btn.addEventListener("click", e => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const parent = btn.closest(".idea-actions");
+                const ideaId = parent.dataset.idea;
+                const reaction = btn.dataset.reaction;
+
+                if (!reaction) return;
+
+                fetch("react_idea.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `idea_id=${ideaId}&reaction=${reaction}`
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        parent.querySelectorAll(".reaction-btn").forEach(b => {
+                            const r = b.dataset.reaction;
+                            if (data[r] !== undefined) {
+                                b.querySelector("span").textContent = data[r];
+                            }
+                        });
+                    });
+            });
+        });
+    </script>
+
 
 </body>
 

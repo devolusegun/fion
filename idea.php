@@ -1,15 +1,14 @@
 <?php
 session_start();
 /**if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
+header("Location: login.php");
+exit;
 }**/
 require "db.php";
+
 $user_id = $_SESSION['user_id'] ?? null;
 $isGuest = $user_id === null;
-
-$user_id = $_SESSION['user_id'];
-$idea_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$idea_id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 if ($idea_id <= 0) {
     die("Invalid idea.");
@@ -32,12 +31,17 @@ if (!$idea) {
 
 /* Fetch reactions count */
 $counts = [];
-$res = $conn->query("
+
+$resStmt = $conn->prepare("
     SELECT reaction, COUNT(*) c 
     FROM idea_reactions 
-    WHERE idea_id = $idea_id 
+    WHERE idea_id = ?
     GROUP BY reaction
 ");
+$resStmt->bind_param("i", $idea_id);
+$resStmt->execute();
+$res = $resStmt->get_result();
+
 while ($row = $res->fetch_assoc()) {
     $counts[$row['reaction']] = $row['c'];
 }
@@ -49,42 +53,64 @@ $isOwner = ($idea['user_id'] == $user_id);
 <html>
 
 <head>
-    <title><?= htmlspecialchars($idea['title']) ?></title>
+    <title>
+        <?= htmlspecialchars($idea['title']) ?>
+    </title>
     <link rel="stylesheet" href="css/ideas.css">
     <script defer src="js/reactions.js"></script>
 </head>
 
 <body>
 
-    <div class="idea-detail">
+    <?php include __DIR__ . "/partials/idea_nav.php"; ?>
 
-        <h2><?= htmlspecialchars($idea['title']) ?></h2>
+    <div class="idea-detail elevated">
+
+        <h2>
+            <?= htmlspecialchars($idea['title']) ?>
+        </h2>
 
         <div class="idea-meta">
-            <span>By <?= htmlspecialchars($idea['firstname']) ?></span>
-            <span><?= date("M j, Y", strtotime($idea['created_at'])) ?></span>
+            <span>By
+                <?= htmlspecialchars($idea['firstname']) ?>
+            </span>
+            <span>
+                <?= date("M j, Y", strtotime($idea['created_at'])) ?>
+            </span>
         </div>
 
         <div class="idea-body">
             <p><strong>Summary</strong></p>
-            <p><?= nl2br(htmlspecialchars($idea['summary'])) ?></p>
+            <p>
+                <?= nl2br(htmlspecialchars($idea['summary'])) ?>
+            </p>
 
             <p><strong>Justification</strong></p>
-            <p><?= nl2br(htmlspecialchars($idea['justification'])) ?></p>
+            <p>
+                <?= nl2br(htmlspecialchars($idea['justification'])) ?>
+            </p>
 
-            <p><strong>Estimated Budget:</strong> <?= htmlspecialchars($idea['estimated_budget']) ?></p>
-            <p><strong>Location:</strong> <?= htmlspecialchars($idea['location']) ?></p>
+            <p><strong>Estimated Budget:</strong>
+                <?= htmlspecialchars($idea['estimated_budget']) ?>
+            </p>
+            <p><strong>Location:</strong>
+                <?= htmlspecialchars($idea['location']) ?>
+            </p>
         </div>
 
         <?php if (!$isGuest): ?>
             <!-- Reactions -->
-            <div class="idea-reactions"
-                data-idea-id="<?= $idea_id ?>"
-                data-owner="<?= $isOwner ? '1' : '0' ?>">
+            <div class="idea-reactions" data-idea-id="<?= $idea_id ?>" data-owner="<?= $isOwner ? '1' : '0' ?>">
 
-                <button class="react-btn" data-type="like">❤️ <span><?= $counts['like'] ?? 0 ?></span></button>
-                <button class="react-btn" data-type="upvote">👍 <span><?= $counts['upvote'] ?? 0 ?></span></button>
-                <button class="react-btn" data-type="downvote">👎 <span><?= $counts['downvote'] ?? 0 ?></span></button>
+                <button type="button" class="react-btn" data-type="like">❤️ <span>
+                        <?= $counts['like'] ?? 0 ?>
+                    </span></button>
+                <button class="react-btn" data-type="upvote">👍 <span>
+                        <?= $counts['upvote'] ?? 0 ?>
+                    </span></button>
+                <button class="react-btn" data-type="downvote">👎 <span>
+                        <?= $counts['downvote'] ?? 0 ?>
+                    </span></button>
 
                 <div class="share-wrapper">
                     <button class="share-btn" onclick="toggleShare()">🔗 Share</button>
@@ -127,6 +153,19 @@ $isOwner = ($idea['user_id'] == $user_id);
             alert("Link copied to clipboard");
         }
     </script>
+
+    <script>
+        window.addEventListener("scroll", () => {
+            const nav = document.getElementById("ideaNav");
+            if (!nav) return;
+            if (window.scrollY > 20) {
+                nav.classList.add("scrolled");
+            } else {
+                nav.classList.remove("scrolled");
+            }
+        });
+    </script>
+
 
 </body>
 

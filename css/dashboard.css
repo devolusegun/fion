@@ -145,15 +145,29 @@ body.dark .top-nav {
 .progress-bar {
     width: 100%;
     height: 10px;
-    border-radius: 6px;
-    background: #aaa;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 12px 0;
 }
 
 .progress-fill {
-    height: 10px;
-    background: #4caf50;
     border-radius: 6px;
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    transition: width 0.6s ease;
 }
+
+.progress-card {
+    background: #eaeaea;
+    border-radius: 14px;
+    padding: 18px;
+  }
+
+  .progress-meta {
+    font-size: 14px;
+    color: #374151;
+  }
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -447,6 +461,100 @@ body.dark .dash-footer {
 }
 
 /* ===== Profile Card Enhancements ===== */
+/* ===== DASHBOARD WELCOME CARD ===== */
+
+.welcome-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #f8f9ff, #f1f3ff);
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+
+.welcome-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7d33ff, #4c9bff);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-text h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.welcome-text .email {
+    margin-top: 4px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.welcome-right {
+    text-align: right;
+}
+
+.contrib-badge {
+    display: inline-block;
+    background: rgba(125,51,255,0.12);
+    color: #7d33ff;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.profile-meter {
+    min-width: 160px;
+}
+
+.meter-bar {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7d33ff, #4c9bff);
+}
+
+.profile-meter small {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .welcome-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .welcome-right {
+        text-align: left;
+        width: 100%;
+    }
+}
+
 .profile-card {
   position: relative;
 }
@@ -502,3 +610,110 @@ body.dark .dash-footer {
   color: #ffba08;
   font-weight: 600;
 }
+
+/* News Section card */
+.news-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+  }
+  
+  .news-item {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .news-item:last-child {
+    border-bottom: none;
+  }
+  
+  .news-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #111827;
+  }
+  
+  .news-meta {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+  
+  .news-category {
+    color: #7c3aed;
+    font-weight: 500;
+  }
+  
+  .news-item:hover .news-title {
+    color: #7c3aed;
+  }
+  
+  .muted {
+    color: #9ca3af;
+    font-size: 14px;
+  }
+  
+  /* User Notifications Section */
+  .notify-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+  }
+  
+  .notify-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .notify-item:last-child {
+    border-bottom: none;
+  }
+  
+  .notify-dot {
+    width: 8px;
+    height: 8px;
+    background: #7c3aed;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  
+  .notify-text {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.4;
+  }
+
+  /* Admin Notifications / Pending Reviews  */
+
+  .admin-card {
+    border-left: 4px solid #f59e0b;
+  }
+  
+  .admin-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .admin-badge {
+    background: #f59e0b;
+    color: #fff;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
+  
+  .admin-alert p {
+    margin: 0;
+    font-size: 14px;
+    color: #374151;
+  }
+  
